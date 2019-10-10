@@ -1,5 +1,16 @@
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+  dump($_POST);
+  //header("Location: ".$_SERVER["PHP_SELF"] );
+  //exit;
+}
+
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,12 +23,14 @@
 
     <!-- Styles -->
     <link href="css/app.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/">
                     Project
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +72,7 @@
                                 <div class="media">
                                   <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
                                   <div class="media-body">
-                                    <h5 class="mt-0">John Doe</h5> 
+                                    <h5 class="mt-0">John Doe</h5>
                                     <span><small>12/10/2025</small></span>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.
@@ -69,24 +82,27 @@
                             </div>
                         </div>
                     </div>
-                
+
                     <div class="col-md-12" style="margin-top: 20px;">
                         <div class="card">
                             <div class="card-header"><h3>Оставить комментарий</h3></div>
 
                             <div class="card-body">
-                                <form action="/store" method="post">
-                                    <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Имя</label>
-                                    <input name="name" class="form-control" id="exampleFormControlTextarea1" />
+                                <form id="form-comments" action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
+                                  <div class="form-group">
+                                    <div id="name-alert" class="alert alert-danger d-none" role="alert">Введите имя</div>
+                                    <label for="name">Имя</label>
+                                    <input id="name" name="name" class="form-control" />
                                   </div>
                                   <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Сообщение</label>
-                                    <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <div id="text-alert" class="alert alert-danger d-none" role="alert">Введите cообщение</div>
+                                    <label for="text">Сообщение</label>
+                                    <textarea id="text" name="text" class="form-control" rows="3"></textarea>
                                   </div>
-                                  <button type="submit" class="btn btn-success">Отправить</button>
+                                  <button id="button-comments" type="submit" class="btn btn-success">Отправить</button>
                                 </form>
                             </div>
+
                         </div>
                     </div>
                 </div>
