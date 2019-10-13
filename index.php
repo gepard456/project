@@ -61,16 +61,26 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                                 Комментарий успешно добавлен
                               </div>
 
+                              <?php
+
+                              $sql = "SELECT * FROM `comments`";
+                              $statement = $pdo->query($sql);
+
+                              while ( $resultComment = $statement->fetch(PDO::FETCH_ASSOC) )
+                              {
+                              ?>
                                 <div class="media">
                                   <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
                                   <div class="media-body">
-                                    <h5 class="mt-0">John Doe</h5>
-                                    <span><small>12/10/2025</small></span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe aspernatur, ullam doloremque deleniti, sequi obcaecati.
-                                    </p>
+                                    <h5 class="mt-0"><?php echo $resultComment['name']?></h5>
+                                    <span><small><?php echo $resultComment['date']?></small></span>
+                                    <p><?php echo $resultComment['comment']?></p>
                                   </div>
                                 </div>
+                              <?php
+                              }
+                              ?>
+
                             </div>
                         </div>
                     </div>
