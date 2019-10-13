@@ -1,13 +1,5 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  dump($_POST);
-  //header("Location: ".$_SERVER["PHP_SELF"] );
-  //exit;
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -88,16 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             <div class="card-header"><h3>Оставить комментарий</h3></div>
 
                             <div class="card-body">
-                                <form id="form-comments" action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
+                                <form id="form-comments" action="/lib/form_comments_store.php" method="post">
                                   <div class="form-group">
-                                    <div id="name-alert" class="alert alert-danger d-none" role="alert">Введите имя</div>
+                                    <div class="alert alert-danger" role="alert">Введите имя</div>
                                     <label for="name">Имя</label>
                                     <input id="name" name="name" class="form-control" />
                                   </div>
                                   <div class="form-group">
-                                    <div id="text-alert" class="alert alert-danger d-none" role="alert">Введите cообщение</div>
+                                    <div class="alert alert-danger" role="alert">Введите cообщение</div>
                                     <label for="text">Сообщение</label>
-                                    <textarea id="text" name="text" class="form-control" rows="3"></textarea>
+                                    <textarea id="text" name="comment" class="form-control" rows="3"></textarea>
                                   </div>
                                   <button id="button-comments" type="submit" class="btn btn-success">Отправить</button>
                                 </form>
