@@ -59,12 +59,12 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                             <div class="card-body">
 
                               <?php
-                              /** flash сообщение добавления комментария **/
-                              if ( isset( $_SESSION['add_comment_error'] ) )
+                              /** Flash сообщение добавления комментария **/
+                              if(isset($_SESSION['add_comment_error']))
                               {
                               ?>
                                 <div class="alert<?php
-                                  if ($_SESSION['add_comment_error'])
+                                  if($_SESSION['add_comment_error'])
                                     echo ' alert-success';
                                   else
                                     echo ' alert-danger';
@@ -72,16 +72,16 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                                   <?php echo $_SESSION['add_comment_message'];?>
                                 </div>
                               <?php
-                                unset( $_SESSION['add_comment_error'], $_SESSION['add_comment_message'] );
+                                unset($_SESSION['add_comment_error'], $_SESSION['add_comment_message']);
                               }
                               ?>
 
                               <?php
-                              /** Вывод комментариве из БД **/
-                              $sql = "SELECT * FROM `comments`";
+                              /** Вывод комментариев из БД **/
+                              $sql = "SELECT * FROM `comments` ORDER BY `id` DESC";
                               $statement = $pdo->query($sql);
 
-                              while ( $resultComment = $statement->fetch(PDO::FETCH_ASSOC) )
+                              while($resultComment = $statement->fetch(PDO::FETCH_ASSOC))
                               {
                               ?>
                                 <div class="media">
