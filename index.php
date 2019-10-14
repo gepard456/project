@@ -57,12 +57,27 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                             <div class="card-header"><h3>Комментарии</h3></div>
 
                             <div class="card-body">
-                              <div class="alert alert-success" role="alert">
-                                Комментарий успешно добавлен
-                              </div>
 
                               <?php
+                              /** flash сообщение добавления комментария **/
+                              if ( isset( $_SESSION['add_comment_error'] ) )
+                              {
+                              ?>
+                                <div class="alert<?php
+                                  if ($_SESSION['add_comment_error'])
+                                    echo ' alert-success';
+                                  else
+                                    echo ' alert-danger';
+                                  ?>" role="alert">
+                                  <?php echo $_SESSION['add_comment_message'];?>
+                                </div>
+                              <?php
+                                unset( $_SESSION['add_comment_error'], $_SESSION['add_comment_message'] );
+                              }
+                              ?>
 
+                              <?php
+                              /** Вывод комментариве из БД **/
                               $sql = "SELECT * FROM `comments`";
                               $statement = $pdo->query($sql);
 
