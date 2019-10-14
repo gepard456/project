@@ -107,13 +107,35 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                             <div class="card-body">
                                 <form id="form-comments" action="/lib/form_comments_store.php" method="post">
                                   <div class="form-group">
-                                    <div class="alert alert-danger" role="alert">Введите имя</div>
                                     <label for="name">Имя</label>
+
+                                    <?php
+                                    /** Flash проверка Имя на заполнение **/
+                                    if(isset($_SESSION['name_empty']))
+                                    {
+                                    ?>
+                                      <div class="alert alert-danger" role="alert"><?php echo $_SESSION['name_empty']?></div>
+                                    <?php
+                                      unset($_SESSION['name_empty']);
+                                    }
+                                    ?>
+
                                     <input id="name" name="name" class="form-control" />
                                   </div>
                                   <div class="form-group">
-                                    <div class="alert alert-danger" role="alert">Введите cообщение</div>
                                     <label for="text">Сообщение</label>
+
+                                    <?php
+                                    /** Flash проверка Сообщение на заполнение **/
+                                    if(isset($_SESSION['comment_empty']))
+                                    {
+                                    ?>
+                                      <div class="alert alert-danger" role="alert"><?php echo $_SESSION['comment_empty']?></div>
+                                    <?php
+                                      unset($_SESSION['comment_empty']);
+                                    }
+                                    ?>
+
                                     <textarea id="text" name="comment" class="form-control" rows="3"></textarea>
                                   </div>
                                   <button id="button-comments" type="submit" class="btn btn-success">Отправить</button>
