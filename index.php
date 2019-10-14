@@ -88,7 +88,7 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                                   <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
                                   <div class="media-body">
                                     <h5 class="mt-0"><?php echo $resultComment['name']?></h5>
-                                    <span><small><?php echo $resultComment['date']?></small></span>
+                                    <span><small><?php echo date ('d/m/Y', strtotime($resultComment['date']))?></small></span>
                                     <p><?php echo $resultComment['comment']?></p>
                                   </div>
                                 </div>
