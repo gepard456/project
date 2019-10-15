@@ -11,6 +11,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $_POST[$key] = trim(strip_tags($value));
   }
 
+  /** Хэширование пароля **/
+  $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
   /** Сохранение user в БД **/
   $sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES (:name, :email, :password)";
   $statement = $pdo->prepare($sql);
