@@ -1,3 +1,6 @@
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,11 +61,21 @@
                                         <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                         <div class="col-md-6">
-                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" autofocus>
+                                            <input id="name" type="text" class="form-control<?php if(isset($_SESSION['name_error'])) echo ' is-invalid'?>" name="name" autocomplete="on" autofocus>
 
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>Ошибка валидации</strong>
-                                                </span>
+                                            <?php
+                                            /** Flash сообщение name **/
+                                            if(isset($_SESSION['name_error']))
+                                            {
+                                            ?>
+                                              <span class="invalid-feedback" role="alert">
+                                                  <strong><?php echo $_SESSION['name_error']?></strong>
+                                              </span>
+                                            <?php
+                                              unset($_SESSION['name_error']);
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
 
@@ -70,7 +83,21 @@
                                         <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control" name="email" >
+                                            <input id="email" type="email" class="form-control<?php if(isset($_SESSION['email_error'])) echo ' is-invalid'?>" name="email" autocomplete="on">
+
+                                            <?php
+                                            /** Flash сообщение email **/
+                                            if(isset($_SESSION['email_error']))
+                                            {
+                                            ?>
+                                              <span class="invalid-feedback" role="alert">
+                                                  <strong><?php echo $_SESSION['email_error']?></strong>
+                                              </span>
+                                            <?php
+                                              unset($_SESSION['email_error']);
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
 
@@ -78,7 +105,21 @@
                                         <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control " name="password"  autocomplete="new-password">
+                                            <input id="password" type="password" class="form-control<?php if(isset($_SESSION['password_error'])) echo ' is-invalid'?>" name="password">
+
+                                            <?php
+                                            /** Flash сообщение password **/
+                                            if(isset($_SESSION['password_error']))
+                                            {
+                                            ?>
+                                              <span class="invalid-feedback" role="alert">
+                                                  <strong><?php echo $_SESSION['password_error']?></strong>
+                                              </span>
+                                            <?php
+                                              unset($_SESSION['password_error']);
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
 
@@ -86,7 +127,21 @@
                                         <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                                         <div class="col-md-6">
-                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
+                                            <input id="password-confirm" type="password" class="form-control<?php if(isset($_SESSION['password_confirmation_error'])) echo ' is-invalid'?>" name="password_confirmation">
+
+                                            <?php
+                                            /** Flash сообщение password_confirmation **/
+                                            if(isset($_SESSION['password_confirmation_error']))
+                                            {
+                                            ?>
+                                              <span class="invalid-feedback" role="alert">
+                                                  <strong><?php echo $_SESSION['password_confirmation_error']?></strong>
+                                              </span>
+                                            <?php
+                                              unset($_SESSION['password_confirmation_error']);
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
 
