@@ -17,16 +17,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
   }
 
-  /** Валидация email **/
-  if(!isset($_SESSION['email_error']))
-  {
-    if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-    {
-      $_SESSION['email_error'] = "Не соответствующий формат E-Mail";
-      $error = true;
-    }
-  }
-
   /** Валидация password **/
   if(!isset($_SESSION['password_error']))
   {
@@ -46,6 +36,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
   }
 
+  unset($_POST['password_confirmation']);
+
+  /** Валидация email **/
+  if(!isset($_SESSION['email_error']))
+  {
+    if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+    {
+      $_SESSION['email_error'] = "Не соответствующий формат E-Mail";
+      $error = true;
+    }
+  }
+
+  if(!isset($_SESSION['email_error']))
+  {
+    $sql = "SELECT `email` FROM `users` WHERE `email` = :email";
+    $statement = $pdo->prepare($sql);
+    $statement->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
+    $statement->execute();
+    $result_valid_email = $statement->rowCount();
+
+    if($result_valid_email)
+    {
+      $_SESSION['email_error'] = 'Такой E-Mail уже зарегистрирован';
+      $error = true;
+    }
+  }
+
   if($error)
   {
     header("Location: /register.php");
@@ -54,8 +71,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
   /** Хэширование пароля **/
   $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-  unset($_POST['password_confirmation']);
 
   /** Сохранение user в БД **/
   $sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES (:name, :email, :password)";
