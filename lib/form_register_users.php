@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
   foreach($_POST as $key => $value)
   {
-    $_POST[$key] = trim(strip_tags($value));
+    $_POST[$key] = trim($value);
 
     if(strlen($value) == 0)
     {
@@ -23,6 +23,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
     {
       $_SESSION['email_error'] = "Не соответствующий формат E-Mail";
+      $error = true;
+    }
+  }
+
+  /** Валидация password **/
+  if(!isset($_SESSION['password_error']))
+  {
+    if(strlen($_POST['password']) < 6)
+    {
+      $_SESSION['password_error'] = 'Пароль должен быть не менее 6 символов';
+      $error = true;
+    }
+  }
+
+  if(!isset($_SESSION['password_error']) && !isset($_SESSION['password_confirmation_error']))
+  {
+    if($_POST['password'] !== $_POST['password_confirmation'])
+    {
+      $_SESSION['password_error'] = 'Подтверждающий пароль не совпадает';
       $error = true;
     }
   }
