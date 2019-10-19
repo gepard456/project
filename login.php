@@ -1,3 +1,6 @@
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,34 +18,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    Project
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="login.html">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="register.html">Register</a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+      <?php
+      require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
+      ?>
 
         <main class="py-4">
             <div class="container">
@@ -52,16 +31,28 @@
                             <div class="card-header">Login</div>
 
                             <div class="card-body">
-                                <form method="POST" action="">
+                                <form method="POST" action="/lib/form_login.php">
 
                                     <div class="form-group row">
                                         <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control is-invalid " name="email"  autocomplete="email" autofocus >
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>Ошибка валидации</strong>
-                                                </span>
+                                            <input id="email" type="email" class="form-control<?php if(isset($_SESSION['email_error'])) echo ' is-invalid'?>" name="email"  autocomplete="email" autofocus >
+
+                                            <?php
+                                            /** Flash сообщение email **/
+                                            if(isset($_SESSION['email_error']))
+                                            {
+                                            ?>
+                                              <span class="invalid-feedback" role="alert">
+                                                  <strong><?php echo $_SESSION['email_error']?></strong>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['email_error']);
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
 
@@ -69,7 +60,20 @@
                                         <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control" name="password"  autocomplete="current-password">
+                                            <input id="password" type="password" class="form-control<?php if(isset($_SESSION['password_error'])) echo ' is-invalid'?>" name="password"  autocomplete="current-password">
+
+                                            <?php
+                                            /** Flash сообщение password **/
+                                            if(isset($_SESSION['password_error']))
+                                            {
+                                            ?>
+                                              <span class="invalid-feedback" role="alert">
+                                                  <strong><?php echo $_SESSION['password_error']?></strong>
+                                              </span>
+                                            <?php
+                                              unset($_SESSION['password_error']);
+                                            }
+                                            ?>
                                         </div>
                                     </div>
 

@@ -75,5 +75,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   /** Сохранение user в БД **/
   $sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES (:name, :email, :password)";
   $statement = $pdo->prepare($sql);
-  $statement->execute($_POST);
+
+  if($statement->execute($_POST))
+  {
+    header("Location: /login.php");
+    die;
+  }
+  else
+  {
+      $_SESSION['email_error'] = "Что-то пошло не так";
+      header("Location: /register.php");
+      die;
+  }
 }
