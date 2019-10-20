@@ -12,3 +12,9 @@ function dump ( $var, $func = false )
 
   echo '</pre>';
 }
+
+function redirect($path)
+{
+  header("Location: $path");
+  die;
+}

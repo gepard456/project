@@ -65,8 +65,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
   if($error)
   {
-    header("Location: /register.php");
-    die;
+    redirect("/register.php");
   }
 
   /** Хэширование пароля **/
@@ -78,13 +77,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
   if($statement->execute($_POST))
   {
-    header("Location: /login.php");
-    die;
+    redirect("/login.php");
   }
   else
   {
       $_SESSION['email_error'] = "Что-то пошло не так";
-      header("Location: /register.php");
-      die;
+      redirect("/register.php");
   }
 }

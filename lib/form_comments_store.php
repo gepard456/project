@@ -17,8 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(strlen($_POST['comment']) == 0)
       $_SESSION['comment_empty'] = 'Введите cообщение';
 
-    header("Location: /");
-    die;
+    redirect("/");
   }
 
   /** Сохранение данных в БД **/
@@ -32,6 +31,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   else
     $_SESSION['add_comment_message'] = 'Уупс, кажется что-то пошло не так';
 
-  header("Location: /");
-  die;
+  redirect("/");
 }
