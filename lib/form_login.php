@@ -48,6 +48,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
       {
         $_SESSION['name'] = $result_data_user['name'];
         $_SESSION['email'] = $result_data_user['email'];
+
+        if(isset($_POST['remember']) && $_POST['remember'] == 1)
+        {
+          if(!isset($_COOKIE['email']) || !isset($_COOKIE['password']))
+          {
+            setcookie("email", $result_data_user['email'], time() + 86400);
+            setcookie("password", $result_data_user['password'], time() + 86400);
+            //dump($_COOKIE);
+            //echo 'Куки установлены';
+          }
+        }
+        else
+        {
+            setcookie('email', '', time() - 3600);
+            setcookie('password', '', time() - 3600);
+            //dump($_COOKIE);
+            //echo 'Куки удалены';
+        }
+
         redirect("/");
       }
       else

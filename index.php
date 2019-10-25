@@ -1,29 +1,6 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Comments</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/script.js"></script>
-</head>
-<body>
-    <div id="app">
-
-      <?php
-      require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
-      ?>
 
         <main class="py-4">
             <div class="container">
@@ -83,7 +60,23 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                             <div class="card-body">
                                 <form id="form-comments" action="/lib/form_comments_store.php" method="post">
                                   <div class="form-group">
-                                    <label for="name">Имя</label>
+
+                                    <?php
+                                    /** Проверка авторизации**/
+                                    if(isset($_SESSION['name']))
+                                    {
+                                    ?>
+                                      <input id="name" type="hidden" name="name" class="form-control" value="<?php echo $_SESSION['name']; ?>" />
+                                    <?php
+                                    }
+                                    else
+                                    {
+                                    ?>
+                                      <label for="name">Имя</label>
+                                      <input id="name" type="text" name="name" class="form-control" />
+                                    <?php
+                                    }
+                                    ?>
 
                                     <?php
                                     /** Flash проверка Имя на заполнение **/
@@ -95,11 +88,11 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                                       unset($_SESSION['name_empty']);
                                     }
                                     ?>
-
-                                    <input id="name" name="name" class="form-control" />
                                   </div>
                                   <div class="form-group">
                                     <label for="text">Сообщение</label>
+
+                                    <textarea id="text" name="comment" class="form-control" rows="3"></textarea>
 
                                     <?php
                                     /** Flash проверка Сообщение на заполнение **/
@@ -111,8 +104,6 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                                       unset($_SESSION['comment_empty']);
                                     }
                                     ?>
-
-                                    <textarea id="text" name="comment" class="form-control" rows="3"></textarea>
                                   </div>
                                   <button id="button-comments" type="submit" class="btn btn-success">Отправить</button>
                                 </form>
@@ -123,6 +114,7 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                 </div>
             </div>
         </main>
-    </div>
-</body>
-</html>
+
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/footer.php');
+?>

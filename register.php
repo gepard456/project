@@ -1,27 +1,6 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Comments</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-
-      <?php
-      require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
-      ?>
 
         <main class="py-4">
             <div class="container">
@@ -135,6 +114,7 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                 </div>
             </div>
         </main>
-    </div>
-</body>
-</html>
+
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/footer.php');
+?>
