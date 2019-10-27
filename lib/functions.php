@@ -33,8 +33,11 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes')
   if(isset($_SESSION['name']))
     unset($_SESSION['name']);
 
-    if(isset($_SESSION['name']))
-      unset($_SESSION['name']);
+  if(isset($_SESSION['email']))
+    unset($_SESSION['email']);
+
+  if(isset($_SESSION['id']))
+    unset($_SESSION['id']);
 }
 else
 {

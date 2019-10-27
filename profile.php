@@ -62,7 +62,6 @@
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Name</label>
                                             <input type="text" class="form-control" name="name" id="exampleFormControlInput1" value="John">
-                                           
                                         </div>
 
                                         <div class="form-group">
