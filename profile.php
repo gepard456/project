@@ -1,52 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Comments</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    Project
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="login.html">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="register.html">Register</a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
+?>
 
         <main class="py-4">
           <div class="container">
             <div class="row justify-content-center">
+
+              <?php
+              /** Проверка авторизации **/
+              if(isset($_SESSION['email'])) // Если авторизован
+              {
+              ?>
+
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header"><h3>Профиль пользователя</h3></div>
@@ -56,17 +21,17 @@
                             Профиль успешно обновлен
                           </div>
 
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="/lib/form_profile_store.php" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Name</label>
-                                            <input type="text" class="form-control" name="name" id="exampleFormControlInput1" value="John">
+                                            <input type="text" class="form-control" name="name" id="exampleFormControlInput1" value="<?php echo $_SESSION['name']?>">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Email</label>
-                                            <input type="email" class="form-control is-invalid" name="email" id="exampleFormControlInput1" value="john@example.com">
+                                            <input type="email" class="form-control is-invalid" name="email" id="exampleFormControlInput1" value="<?php echo $_SESSION['email']?>">
                                             <span class="text text-danger">
                                                 Ошибка валидации
                                             </span>
@@ -124,9 +89,25 @@
                         </div>
                     </div>
                 </div>
+
+                <?php
+                }
+                else // Если не авторизован
+                {
+                ?>
+                  <div class="col-md-12">
+                      <div class="alert alert-info" role="alert">
+                        Для входа в личный кабинет <a href="/login.php">авторизуйтесь</a>
+                      </div>
+                  </div>
+                <?php
+                }
+                ?>
+
             </div>
         </div>
-        </main>
-    </div>
-</body>
-</html>
+      </main>
+
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/footer.php');
+?>
