@@ -37,9 +37,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $statement = $pdo->prepare($sql);
     $statement->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
     $statement->execute();
-    $result_data = $statement->rowCount();
+    $result_count = $statement->rowCount();
 
-    if($result_data)
+    if($result_count == 1)
     {
       $result_data_user = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -57,16 +57,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
           {
             setcookie("email", $result_data_user['email'], time() + 86400, '/');
             setcookie("password", $result_data_user['password'], time() + 86400, '/');
-            //dump($_COOKIE);
-            //echo 'Куки установлены';
           }
         }
         else
         {
             setcookie('email', '', time() - 3600, '/');
             setcookie('password', '', time() - 3600, '/');
-            //dump($_COOKIE);
-            //echo 'Куки удалены';
         }
 
         redirect("/");

@@ -21,25 +21,43 @@ function redirect($path)
   die;
 }
 
-/** Проверка remember **/
-if( !isset($_SESSION['name']) && isset($_COOKIE['email']) )
+/** Выход из системы **/
+if(isset($_GET['logout']) && $_GET['logout'] == 'yes')
 {
-  /** Проверка существования email в БД **/
-  $sql_h = "SELECT * FROM `users` WHERE `email` = :email";
-  $statement_h = $pdo->prepare($sql_h);
-  $statement_h->bindValue(':email', $_COOKIE['email'], PDO::PARAM_STR);
-  $statement_h->execute();
-  $result_data_h = $statement_h->rowCount();
+  if(isset($_COOKIE['email']))
+      setcookie('email', '', time() - 3600, '/');
 
-  if($result_data_h)
+  if(isset($_COOKIE['password']))
+      setcookie('password', '', time() - 3600, '/');
+
+  if(isset($_SESSION['name']))
+    unset($_SESSION['name']);
+
+    if(isset($_SESSION['name']))
+      unset($_SESSION['name']);
+}
+else
+{
+  /** Проверка remember **/
+  if( !isset($_SESSION['name']) && isset($_COOKIE['email']) )
   {
-      $result_data_user_h = $statement_h->fetch(PDO::FETCH_ASSOC);
+    /** Проверка существования email в БД **/
+    $sql_h = "SELECT * FROM `users` WHERE `email` = :email";
+    $statement_h = $pdo->prepare($sql_h);
+    $statement_h->bindValue(':email', $_COOKIE['email'], PDO::PARAM_STR);
+    $statement_h->execute();
+    $result_count_h = $statement_h->rowCount();
 
-      if($_COOKIE['email'] == $result_data_user_h['email'] && $_COOKIE['password'] == $result_data_user_h['password'])
-      {
-        /** Авторизация **/
-        $_SESSION['name'] = $result_data_user_h['name'];
-        $_SESSION['email'] = $result_data_user_h['email'];
-      }
+    if($result_count_h == 1)
+    {
+        $result_data_user_h = $statement_h->fetch(PDO::FETCH_ASSOC);
+
+        if($_COOKIE['email'] == $result_data_user_h['email'] && $_COOKIE['password'] == $result_data_user_h['password'])
+        {
+          /** Авторизация **/
+          $_SESSION['name'] = $result_data_user_h['name'];
+          $_SESSION['email'] = $result_data_user_h['email'];
+        }
+    }
   }
 }
