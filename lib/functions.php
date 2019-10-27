@@ -55,6 +55,7 @@ else
         if($_COOKIE['email'] == $result_data_user_h['email'] && $_COOKIE['password'] == $result_data_user_h['password'])
         {
           /** Авторизация **/
+          $_SESSION['id'] = $result_data_user_h['id'];
           $_SESSION['name'] = $result_data_user_h['name'];
           $_SESSION['email'] = $result_data_user_h['email'];
         }

@@ -31,7 +31,11 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
 
                               <?php
                               /** Вывод комментариев из БД **/
-                              $sql = "SELECT * FROM `comments` ORDER BY `id` DESC";
+                              $sql = "SELECT c.comment, c.date, u.name
+                                        FROM comments c INNER JOIN users u
+                                          ON c.user_id = u.id
+                                            ORDER BY c.date DESC";
+                                            
                               $statement = $pdo->query($sql);
 
                               while($resultComment = $statement->fetch(PDO::FETCH_ASSOC))
@@ -54,48 +58,27 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                     </div>
 
                     <div class="col-md-12" style="margin-top: 20px;">
+
+                      <?php
+                      /** Проверка авторизации **/
+                      if(isset($_SESSION['email'])) // Если авторизован
+                      {
+                      ?>
                         <div class="card">
                             <div class="card-header"><h3>Оставить комментарий</h3></div>
-
                             <div class="card-body">
+
                                 <form id="form-comments" action="/lib/form_comments_store.php" method="post">
-                                  <div class="form-group">
 
-                                    <?php
-                                    /** Проверка авторизации**/
-                                    if(isset($_SESSION['name']))
-                                    {
-                                    ?>
-                                      <input id="name" type="hidden" name="name" class="form-control" value="<?php echo $_SESSION['name']; ?>" />
-                                    <?php
-                                    }
-                                    else
-                                    {
-                                    ?>
-                                      <label for="name">Имя</label>
-                                      <input id="name" type="text" name="name" class="form-control" />
-                                    <?php
-                                    }
-                                    ?>
+                                  <input type="hidden" name="name" value="<?php echo $_SESSION['name'];?>" />
+                                  <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'];?>" />
 
-                                    <?php
-                                    /** Flash проверка Имя на заполнение **/
-                                    if(isset($_SESSION['name_empty']))
-                                    {
-                                    ?>
-                                      <div class="alert alert-danger" role="alert"><?php echo $_SESSION['name_empty']?></div>
-                                    <?php
-                                      unset($_SESSION['name_empty']);
-                                    }
-                                    ?>
-                                  </div>
                                   <div class="form-group">
                                     <label for="text">Сообщение</label>
-
                                     <textarea id="text" name="comment" class="form-control" rows="3"></textarea>
 
                                     <?php
-                                    /** Flash проверка Сообщение на заполнение **/
+                                    /** Flash проверка Сообщения на заполнение **/
                                     if(isset($_SESSION['comment_empty']))
                                     {
                                     ?>
@@ -104,12 +87,25 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                                       unset($_SESSION['comment_empty']);
                                     }
                                     ?>
+
                                   </div>
                                   <button id="button-comments" type="submit" class="btn btn-success">Отправить</button>
                                 </form>
                             </div>
-
                         </div>
+
+                      <?php
+                      }
+                      else // Если не авторизован
+                      {
+                      ?>
+                        <div class="alert alert-info" role="alert">
+                          Чтобы оставить комментарий, <a href="/login.php">авторизуйтесь</a>
+                        </div>
+                      <?php
+                      }
+                      ?>
+
                     </div>
                 </div>
             </div>

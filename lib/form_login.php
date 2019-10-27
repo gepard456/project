@@ -47,6 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
       if(password_verify ($_POST['password'], $result_data_user['password']))
       {
         /** Авторизация **/
+        $_SESSION['id'] = $result_data_user['id'];
         $_SESSION['name'] = $result_data_user['name'];
         $_SESSION['email'] = $result_data_user['email'];
 
