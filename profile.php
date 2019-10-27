@@ -26,15 +26,42 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Name</label>
-                                            <input type="text" class="form-control" name="name" id="exampleFormControlInput1" value="<?php echo $_SESSION['name']?>">
+                                            <input type="text" class="form-control<?php if(isset($_SESSION['name_error'])) echo ' is-invalid'?>" name="name" id="exampleFormControlInput1" value="<?php echo $_SESSION['name']?>">
+
+                                            <?php
+                                            /** Flash сообщение name **/
+                                            if(isset($_SESSION['name_error']))
+                                            {
+                                            ?>
+                                              <span class="text text-danger">
+                                                  <?php echo $_SESSION['name_error']?>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['name_error']);
+                                            }
+                                            ?>
+
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Email</label>
-                                            <input type="email" class="form-control is-invalid" name="email" id="exampleFormControlInput1" value="<?php echo $_SESSION['email']?>">
-                                            <span class="text text-danger">
-                                                Ошибка валидации
-                                            </span>
+                                            <input type="email" class="form-control<?php if(isset($_SESSION['email_error'])) echo ' is-invalid'?>" name="email" id="exampleFormControlInput1" value="<?php echo $_SESSION['email']?>">
+
+                                            <?php
+                                            /** Flash сообщение email **/
+                                            if(isset($_SESSION['email_error']))
+                                            {
+                                            ?>
+                                              <span class="text text-danger">
+                                                  <?php echo $_SESSION['email_error']?>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['email_error']);
+                                            }
+                                            ?>
+
                                         </div>
 
                                         <div class="form-group">
