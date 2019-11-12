@@ -17,9 +17,32 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                         <div class="card-header"><h3>Профиль пользователя</h3></div>
 
                         <div class="card-body">
+
+                        <?php
+                        /** Flash сообщение form **/
+                        if(isset($_SESSION['profile_form_success']))
+                        {
+                        ?>
                           <div class="alert alert-success" role="alert">
-                            Профиль успешно обновлен
+                            <?php echo $_SESSION['profile_form_success']?>
                           </div>
+                        <?php
+                          unset($_SESSION['profile_form_success']);
+                        }
+                        ?>
+
+                        <?php
+                        /** Flash сообщение form **/
+                        if(isset($_SESSION['profile_form_error']))
+                        {
+                        ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?php echo $_SESSION['profile_form_error']?>
+                          </div>
+                        <?php
+                          unset($_SESSION['profile_form_error']);
+                        }
+                        ?>
 
                             <form action="/lib/form_profile_store.php" method="post" enctype="multipart/form-data">
                                 <div class="row">
@@ -45,8 +68,8 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Email</label>
-                                            <input type="email" class="form-control<?php if(isset($_SESSION['email_error'])) echo ' is-invalid'?>" name="email" id="exampleFormControlInput1" value="<?php echo $_SESSION['email']?>">
+                                            <label for="exampleFormControlInput2">Email</label>
+                                            <input type="email" class="form-control<?php if(isset($_SESSION['email_error'])) echo ' is-invalid'?>" name="email" id="exampleFormControlInput2" value="<?php echo $_SESSION['email']?>">
 
                                             <?php
                                             /** Flash сообщение email **/
@@ -65,16 +88,38 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Аватар</label>
-                                            <input type="file" class="form-control" name="image" id="exampleFormControlInput1">
+                                            <label for="exampleFormControlInput3">Аватар</label>
+                                            <input type="file" class="form-control" name="image" id="exampleFormControlInput3">
+
+                                            <?php
+                                            /** Flash сообщение image **/
+                                            if(isset($_SESSION['image_error']))
+                                            {
+                                            ?>
+                                              <span class="text text-danger">
+                                                  <?php echo $_SESSION['image_error']?>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['image_error']);
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <img src="img/no-user.jpg" alt="" class="img-fluid">
+
+                                      <img src="<?php echo PATH_DIR_UPLOAD?>/<?
+                                        if(empty($_SESSION['image']))
+                                          echo 'no-user.jpg';
+                                        else
+                                          echo $_SESSION['image'];
+                                        ?>" alt="<?php echo $_SESSION['name']?>" class="img-fluid">
+
                                     </div>
 
                                     <div class="col-md-12">
-                                        <button class="btn btn-warning">Edit profile</button>
+                                        <button class="btn btn-warning">Редактировать</button>
                                     </div>
                                 </div>
                             </form>

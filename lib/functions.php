@@ -61,6 +61,7 @@ else
           $_SESSION['id'] = $result_data_user_h['id'];
           $_SESSION['name'] = $result_data_user_h['name'];
           $_SESSION['email'] = $result_data_user_h['email'];
+          $_SESSION['image'] = $result_data_user_h['image'];
         }
     }
   }

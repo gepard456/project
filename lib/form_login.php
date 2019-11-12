@@ -50,6 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         $_SESSION['id'] = $result_data_user['id'];
         $_SESSION['name'] = $result_data_user['name'];
         $_SESSION['email'] = $result_data_user['email'];
+        $_SESSION['image'] = $result_data_user['image'];
 
         /** Проверка remember **/
         if(isset($_POST['remember']) && $_POST['remember'] == 1)

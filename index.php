@@ -31,18 +31,25 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
 
                               <?php
                               /** Вывод комментариев из БД **/
-                              $sql = "SELECT c.comment, c.date, u.name
+                              $sql = "SELECT c.comment, c.date, u.name, u.image
                                         FROM comments c INNER JOIN users u
                                           ON c.user_id = u.id
                                             ORDER BY c.date DESC";
-                                            
+
                               $statement = $pdo->query($sql);
 
                               while($resultComment = $statement->fetch(PDO::FETCH_ASSOC))
                               {
                               ?>
                                 <div class="media">
-                                  <img src="img/no-user.jpg" class="mr-3" alt="..." width="64" height="64">
+
+                                  <img src="<?php echo PATH_DIR_UPLOAD?>/<?php
+                                    if(empty($resultComment['image']))
+                                      echo 'no-user.jpg';
+                                    else
+                                      echo $resultComment['image'];
+                                    ?>" class="mr-3" alt="<?php echo $resultComment['name']?>" width="64" height="64">
+
                                   <div class="media-body">
                                     <h5 class="mt-0"><?php echo $resultComment['name']?></h5>
                                     <span><small><?php echo date ('d/m/Y', strtotime($resultComment['date']))?></small></span>

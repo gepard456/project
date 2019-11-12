@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 27 2019 г., 18:57
+-- Время создания: Ноя 12 2019 г., 21:11
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.1.7
 
@@ -67,24 +67,25 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(2, 'John Smit', 'john@mail.ru', '$2y$10$M7QwRUK50xDOGvfu4JDXN.BrOiwC/buYqltVEC8onYKxI68M.NFVO'),
-(3, 'Petr', 'petrl@mail.ru', '$2y$10$Qntwl1VbsmRJqUgIXOQqVeprYvWQjkT0IE0fOQVmj0fSXXBGcg6Ru'),
-(4, 'Gorg', 'gorg@mail.ru', '$2y$10$QpqvmG80sc28UNMp8pm39.YOf6.1CA9oGn0A0S2eLWPyasggJFbaa'),
-(5, 'Vasil', 'vasil@mail.ru', '$2y$10$uGpiPX0brmseQ4Xh2Nra/.dvjjDks2PB.6aDQ/pjsPFSsx2E2r4yO'),
-(6, 'Boris', 'boris@mail.ru', '$2y$10$VKxtDSGTX1MTpKXEnRLp9uH7AqAB9jsii2ZgSVkk/wEWBYwXZWw.6'),
-(7, 'Fedor', 'fedor@mail.ru', '$2y$10$vdYTpauYf/BKNPbu2X3IZ.prXUc7kgsYu3wZfV.6PkIy5RP/9cLtq'),
-(8, 'Kolya', 'kolya@mail.ru', '$2y$10$vBkEjjYLI5MsogI3SePF9OiAjWanFUp5o4CgCMb960C18mwh/uu8K'),
-(9, 'bro', 'bro@mail.ru', '$2y$10$GT43IRS2SFZ6mGwEbm6ImeMNUnSOZeAHiC9879WGxKYNArbm5g4eG'),
-(10, 'name', 'name@name.ru', '$2y$10$6JruPcrx5wVbMzGblBFDRu6f4RqsN2cXMRMMuQS2jjLW3yprRCOHW'),
-(11, 'Ivan Grozniy', 'grozniy@mail.ru', '$2y$10$sUGu6S2Mvuc66GwbWqvmzeWMmNNs3atV15.Qc.gJ9JjjN.DzZcYdS');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`) VALUES
+(2, 'John Smit', 'john@mail.ru', '$2y$10$M7QwRUK50xDOGvfu4JDXN.BrOiwC/buYqltVEC8onYKxI68M.NFVO', ''),
+(3, 'Petr', 'petrl@mail.ru', '$2y$10$Qntwl1VbsmRJqUgIXOQqVeprYvWQjkT0IE0fOQVmj0fSXXBGcg6Ru', ''),
+(4, 'Gorg', 'gorg@mail.ru', '$2y$10$QpqvmG80sc28UNMp8pm39.YOf6.1CA9oGn0A0S2eLWPyasggJFbaa', ''),
+(5, 'Vasil', 'vasil@mail.ru', '$2y$10$uGpiPX0brmseQ4Xh2Nra/.dvjjDks2PB.6aDQ/pjsPFSsx2E2r4yO', ''),
+(6, 'Boris', 'boris@mail.ru', '$2y$10$VKxtDSGTX1MTpKXEnRLp9uH7AqAB9jsii2ZgSVkk/wEWBYwXZWw.6', ''),
+(7, 'Fedor', 'fedor@mail.ru', '$2y$10$vdYTpauYf/BKNPbu2X3IZ.prXUc7kgsYu3wZfV.6PkIy5RP/9cLtq', ''),
+(8, 'Kolya', 'kolya@mail.ru', '$2y$10$vBkEjjYLI5MsogI3SePF9OiAjWanFUp5o4CgCMb960C18mwh/uu8K', ''),
+(9, 'bro', 'bro@mail.ru', '$2y$10$GT43IRS2SFZ6mGwEbm6ImeMNUnSOZeAHiC9879WGxKYNArbm5g4eG', ''),
+(10, 'name', 'name@name.ru', '$2y$10$6JruPcrx5wVbMzGblBFDRu6f4RqsN2cXMRMMuQS2jjLW3yprRCOHW', ''),
+(11, 'Ivan Grozniy', 'grozniy@mail.ru', '$2y$10$sUGu6S2Mvuc66GwbWqvmzeWMmNNs3atV15.Qc.gJ9JjjN.DzZcYdS', '');
 
 --
 -- Индексы сохранённых таблиц
