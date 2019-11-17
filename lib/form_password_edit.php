@@ -20,8 +20,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
   }
 
-  /** Проверка password **/
   if(!isset($_SESSION['current_error']))
+  {
+    if(strlen($_POST['current']) < 6)
+    {
+      $_SESSION['current_error'] = 'Пароль должен быть не менее 6 символов';
+      $error = true;
+    }
+  }
+
+  /** Проверка password **/
+  if(!isset($_SESSION['current_error']) && !isset($_SESSION['password_error']) && !isset($_SESSION['password_confirmation_error']))
   {
     if(password_verify ($_POST['current'], $_SESSION['password'])) // Если текущий пароль совпадает
     {
@@ -30,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         /** Хэширование пароля **/
         $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        /** Обновление паролья в БД **/
+        /** Обновление пароля в БД **/
         $sql = "UPDATE users SET password = :password WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(':password', $_POST['password'], PDO::PARAM_STR);

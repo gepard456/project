@@ -41,7 +41,7 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                               /** Вывод комментариев из БД **/
                               $sql = "SELECT c.comment, c.date, u.name, u.image
                                         FROM comments c INNER JOIN users u
-                                          ON c.user_id = u.id
+                                          ON c.user_id = u.id AND c.status = 0
                                             ORDER BY c.date DESC";
 
                               $statement = $pdo->query($sql);

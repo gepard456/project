@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 12 2019 г., 21:11
+-- Время создания: Ноя 18 2019 г., 02:09
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.1.7
 
@@ -34,28 +34,31 @@ CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `comment` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `comments`
 --
 
-INSERT INTO `comments` (`id`, `comment`, `date`, `user_id`) VALUES
-(1, 'dddsfdsf fgfggfd', '2019-10-13 22:13:32', 2),
-(2, 'sdsdsa sdfsdff', '2019-10-13 22:34:29', 3),
-(3, 'парпрр прпра', '2019-10-13 22:43:38', 3),
-(4, 'счсяч мсмчсм смсчм', '2019-10-13 23:14:25', 4),
-(5, 'fsfdsf dffdsf', '2019-10-14 16:24:37', 5),
-(6, 'фывро ыфовролрфволы', '2019-10-14 22:29:08', 6),
-(7, 'ывыфв ыфвфывывыф', '2019-10-14 22:33:40', 7),
-(8, 'sdasds ssdsdasd', '2019-10-19 19:58:20', 8),
-(9, 'asdsadsd asdad', '2019-10-19 19:58:57', 8),
-(10, 'dsfsdf dsf sdfdsfsdf', '2019-10-25 18:56:37', 7),
-(11, 'sffsdfdsfd dffsfsdfd', '2019-10-25 18:56:46', 6),
-(12, 'dsf dfdsff dfsdf', '2019-10-25 20:17:16', 5),
-(13, 'dasdsad asdasdasdda', '2019-10-27 13:16:03', 9),
-(14, 'Комментарий олвфды фывв', '2019-10-27 14:07:58', 11);
+INSERT INTO `comments` (`id`, `comment`, `date`, `user_id`, `status`) VALUES
+(1, 'dddsfdsf fgfggfd', '2019-10-13 22:13:32', 2, 0),
+(3, 'парпрр прпра', '2019-10-13 22:43:38', 3, 0),
+(4, 'счсяч мсмчсм смсчм', '2019-10-13 23:14:25', 4, 0),
+(5, 'fsfdsf dffdsf', '2019-10-14 16:24:37', 5, 0),
+(6, 'фывро ыфовролрфволы', '2019-10-14 22:29:08', 6, 0),
+(7, 'ывыфв ыфвфывывыф', '2019-10-14 22:33:40', 7, 0),
+(9, 'asdsadsd asdad', '2019-10-19 19:58:57', 8, 0),
+(10, 'dsfsdf dsf sdfdsfsdf', '2019-10-25 18:56:37', 7, 0),
+(11, 'sffsdfdsfd dffsfsdfd', '2019-10-25 18:56:46', 6, 0),
+(12, 'dsf dfdsff dfsdf', '2019-10-25 20:17:16', 5, 0),
+(13, 'dasdsad asdasdasdda', '2019-10-27 13:16:03', 9, 1),
+(14, 'Комментарий олвфды фывв', '2019-10-27 14:07:58', 11, 0),
+(17, 'sdsad sadsds', '2019-11-17 22:38:57', 9, 0),
+(18, 'sdsad sadsds', '2019-11-17 22:39:13', 9, 0),
+(19, 'asdasd sadsghghjhjhjj', '2019-11-17 22:39:26', 9, 1),
+(22, 'sdff dsfdsfdfdf', '2019-11-17 23:06:54', 13, 0);
 
 -- --------------------------------------------------------
 
@@ -68,7 +71,7 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -83,9 +86,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`) VALUES
 (6, 'Boris', 'boris@mail.ru', '$2y$10$VKxtDSGTX1MTpKXEnRLp9uH7AqAB9jsii2ZgSVkk/wEWBYwXZWw.6', ''),
 (7, 'Fedor', 'fedor@mail.ru', '$2y$10$vdYTpauYf/BKNPbu2X3IZ.prXUc7kgsYu3wZfV.6PkIy5RP/9cLtq', ''),
 (8, 'Kolya', 'kolya@mail.ru', '$2y$10$vBkEjjYLI5MsogI3SePF9OiAjWanFUp5o4CgCMb960C18mwh/uu8K', ''),
-(9, 'bro', 'bro@mail.ru', '$2y$10$GT43IRS2SFZ6mGwEbm6ImeMNUnSOZeAHiC9879WGxKYNArbm5g4eG', ''),
 (10, 'name', 'name@name.ru', '$2y$10$6JruPcrx5wVbMzGblBFDRu6f4RqsN2cXMRMMuQS2jjLW3yprRCOHW', ''),
-(11, 'Ivan Grozniy', 'grozniy@mail.ru', '$2y$10$sUGu6S2Mvuc66GwbWqvmzeWMmNNs3atV15.Qc.gJ9JjjN.DzZcYdS', '');
+(11, 'Ivan Grozniy', 'grozniy@mail.ru', '$2y$10$sUGu6S2Mvuc66GwbWqvmzeWMmNNs3atV15.Qc.gJ9JjjN.DzZcYdS', ''),
+(12, 'brod', 'brod@mail.ru', '$2y$10$fiOVSuAsHUnaBK00R6ZVT.wni8XF/EUWo3o/f4ZAO226t6UfqWcdG', '5dd1d21a063f0.jpg'),
+(13, 'superman', 'superman@mail.ru', '$2y$10$NlkO0BKAtz1i19Aejb0RnO9APxTJHfpMqbl4.7Ox6jz1SyVaTjhye', NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -111,12 +115,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

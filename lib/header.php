@@ -50,6 +50,7 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/functions.php');
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                           <a class="dropdown-item" href="/profile.php">Профиль</a>
+                          <a class="dropdown-item" href="/admin.php">Админка</a>
                           <a class="dropdown-item" href="<?php echo $_SERVER['PHP_SELF'] . '?logout=yes';?>">Выйти</a>
                         </div>
                       </div>

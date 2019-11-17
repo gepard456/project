@@ -1,52 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
 
-    <title>Comments</title>
+$sql = "SELECT c.id, c.date, c.comment, c.status, u.image, u.name
+          FROM comments c INNER JOIN users u
+            ON c.user_id = u.id
+              ORDER BY c.date DESC";
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="css/app.css" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    Project
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="login.html">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="register.html">Register</a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+$statement = $pdo->query($sql);
+$resultComments = $statement->fetchAll(PDO::FETCH_ASSOC);
+?>
 
         <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
+                  
+                  <?php if(isset($_SESSION['email'])):?>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header"><h3>Админ панель</h3></div>
@@ -64,29 +32,45 @@
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <img src="img/no-user.jpg" alt="" class="img-fluid" width="64" height="64">
-                                            </td>
-                                            <td>John</td>
-                                            <td>12/08/2045</td>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta aut quam cumque libero reiciendis, dolor.</td>
-                                            <td>
-                                                    <a href="" class="btn btn-success">Разрешить</a>
+                                        <?php foreach ($resultComments as $key => $value):?>
+                                          <tr>
+                                              <td>
+                                                <?php if($value['image']):?>
+                                                  <img src="<?=PATH_DIR_UPLOAD?>/<?=$value['image']?>" alt="<?=$value['name']?>" class="img-fluid" width="64" height="64">
+                                                <?php else:?>
+                                                  <img src="<?=PATH_DIR_UPLOAD?>/no-user.jpg" alt="<?=$value['name']?>" class="img-fluid" width="64" height="64">
+                                                <?php endif?>
+                                              </td>
+                                              <td><?=$value['name']?></td>
+                                              <td><?php echo date ('d/m/Y', strtotime($value['date']))?></td>
+                                              <td><?=$value['comment']?></td>
+                                              <td>
+                                                <?if($value['status'] == 0):?>
+                                                  <a href="lib/admin_handler.php?forbid=<?=$value['id']?>" class="btn btn-warning">Запретить</a>
+                                                <?else:?>
+                                                  <a href="lib/admin_handler.php?allow=<?=$value['id']?>" class="btn btn-success">Разрешить</a>
+                                                <?endif?>
 
-                                                    <a href="" class="btn btn-warning">Запретить</a>
-
-                                                <a href="" onclick="return confirm('are you sure?')" class="btn btn-danger">Удалить</a>
-                                            </td>
-                                        </tr>
+                                                  <a href="lib/admin_handler.php?delete=<?=$value['id']?>" onclick="return confirm('are you sure?')" class="btn btn-danger">Удалить</a>
+                                              </td>
+                                          </tr>
+                                        <?php endforeach?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+                  <?php else:?>
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                          Для входа <a href="/login.php">авторизуйтесь</a>
+                        </div>
+                    </div>
+                  <?php endif?>
                 </div>
             </div>
         </main>
-    </div>
-</body>
-</html>
+
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"].'/lib/footer.php');
+?>
