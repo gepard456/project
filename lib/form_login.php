@@ -51,6 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         $_SESSION['name'] = $result_data_user['name'];
         $_SESSION['email'] = $result_data_user['email'];
         $_SESSION['image'] = $result_data_user['image'];
+        $_SESSION['password'] = $result_data_user['password'];
 
         /** Проверка remember **/
         if(isset($_POST['remember']) && $_POST['remember'] == 1)
@@ -66,8 +67,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
             setcookie('email', '', time() - 3600, '/');
             setcookie('password', '', time() - 3600, '/');
         }
-
-        redirect("/");
+        redirect($_SESSION['HTTP_REFERER']);
       }
       else
       {

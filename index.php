@@ -16,16 +16,24 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                               if(isset($_SESSION['add_comment_error']))
                               {
                               ?>
-                                <div class="alert<?php
-                                  if($_SESSION['add_comment_error'])
-                                    echo ' alert-success';
-                                  else
-                                    echo ' alert-danger';
-                                  ?>" role="alert">
-                                  <?php echo $_SESSION['add_comment_message'];?>
+                                <div class="alert alert-danger" role="alert">
+                                  <?php echo $_SESSION['add_comment_error'];?>
                                 </div>
                               <?php
-                                unset($_SESSION['add_comment_error'], $_SESSION['add_comment_message']);
+                                unset($_SESSION['add_comment_error']);
+                              }
+                              ?>
+
+                              <?php
+                              /** Flash сообщение добавления комментария **/
+                              if(isset($_SESSION['add_comment_success']))
+                              {
+                              ?>
+                                <div class="alert alert-success" role="alert">
+                                  <?php echo $_SESSION['add_comment_success'];?>
+                                </div>
+                              <?php
+                                unset($_SESSION['add_comment_success']);
                               }
                               ?>
 
@@ -77,7 +85,6 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
 
                                 <form id="form-comments" action="/lib/form_comments_store.php" method="post">
 
-                                  <input type="hidden" name="name" value="<?php echo $_SESSION['name'];?>" />
                                   <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'];?>" />
 
                                   <div class="form-group">

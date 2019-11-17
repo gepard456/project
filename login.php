@@ -1,5 +1,10 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
+
+if( strpos($_SERVER['HTTP_REFERER'], 'login') || strpos($_SERVER['HTTP_REFERER'], 'register') )
+  $_SESSION['HTTP_REFERER'] = "/";
+else
+  $_SESSION['HTTP_REFERER'] = strtok($_SERVER['HTTP_REFERER'], '?');
 ?>
 
         <main class="py-4">

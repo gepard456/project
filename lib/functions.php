@@ -38,6 +38,9 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes')
 
   if(isset($_SESSION['id']))
     unset($_SESSION['id']);
+
+  if(isset($_SESSION['password']))
+    unset($_SESSION['password']);
 }
 else
 {
@@ -62,6 +65,7 @@ else
           $_SESSION['name'] = $result_data_user_h['name'];
           $_SESSION['email'] = $result_data_user_h['email'];
           $_SESSION['image'] = $result_data_user_h['image'];
+          $_SESSION['password'] = $result_data_user_h['password'];
         }
     }
   }

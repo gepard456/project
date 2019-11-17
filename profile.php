@@ -132,26 +132,82 @@ require_once($_SERVER["DOCUMENT_ROOT"].'/lib/header.php');
                         <div class="card-header"><h3>Безопасность</h3></div>
 
                         <div class="card-body">
+
+                          <?php
+                          /** Flash сообщение current **/
+                          if(isset($_SESSION['password_success']))
+                          {
+                          ?>
                             <div class="alert alert-success" role="alert">
-                                Пароль успешно обновлен
+                                <?php echo $_SESSION['password_success'];?>
                             </div>
 
-                            <form action="/profile/password" method="post">
+                          <?php
+                            unset($_SESSION['password_success']);
+                          }
+                          ?>
+
+                            <form action="/lib/form_password_edit.php" method="post">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Current password</label>
-                                            <input type="password" name="current" class="form-control" id="exampleFormControlInput1">
+                                            <label for="exampleFormControlInput4">Current password</label>
+                                            <input type="password" name="current" class="form-control" id="exampleFormControlInput4">
+
+                                            <?php
+                                            /** Flash сообщение current **/
+                                            if(isset($_SESSION['current_error']))
+                                            {
+                                            ?>
+                                              <span class="text text-danger">
+                                                  <?php echo $_SESSION['current_error']?>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['current_error']);
+                                            }
+                                            ?>
+
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">New password</label>
-                                            <input type="password" name="password" class="form-control" id="exampleFormControlInput1">
+                                            <label for="exampleFormControlInput5">New password</label>
+                                            <input type="password" name="password" class="form-control" id="exampleFormControlInput5">
+
+                                            <?php
+                                            /** Flash сообщение password **/
+                                            if(isset($_SESSION['password_error']))
+                                            {
+                                            ?>
+                                              <span class="text text-danger">
+                                                  <?php echo $_SESSION['password_error']?>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['password_error']);
+                                            }
+                                            ?>
+
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlInput1">Password confirmation</label>
-                                            <input type="password" name="password_confirmation" class="form-control" id="exampleFormControlInput1">
+                                            <label for="exampleFormControlInput6">Password confirmation</label>
+                                            <input type="password" name="password_confirmation" class="form-control" id="exampleFormControlInput6">
+
+                                            <?php
+                                            /** Flash сообщение password_confirmation **/
+                                            if(isset($_SESSION['password_confirmation_error']))
+                                            {
+                                            ?>
+                                              <span class="text text-danger">
+                                                  <?php echo $_SESSION['password_confirmation_error']?>
+                                              </span>
+
+                                            <?php
+                                              unset($_SESSION['password_confirmation_error']);
+                                            }
+                                            ?>
+
                                         </div>
 
                                         <button class="btn btn-success">Submit</button>

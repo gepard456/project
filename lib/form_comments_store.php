@@ -16,17 +16,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     redirect("/");
   }
-
   /** Сохранение комментария в БД **/
-  $sql = "INSERT INTO `comments` (`name`, `comment`, `user_id`) VALUES (:name, :comment, :user_id)";
+  $sql = "INSERT INTO `comments` (`comment`, `user_id`) VALUES (:comment, :user_id)";
   $statement = $pdo->prepare($sql);
-  $_SESSION['add_comment_error'] = $statement->execute($_POST);
 
   /** Валидация сохранения комментария в БД **/
-  if($_SESSION['add_comment_error'])
-    $_SESSION['add_comment_message'] = 'Комментарий успешно добавлен';
+  if($statement->execute($_POST))
+    $_SESSION['add_comment_success'] = 'Комментарий успешно добавлен';
   else
-    $_SESSION['add_comment_message'] = 'Уупс, кажется что-то пошло не так';
+    $_SESSION['add_comment_error'] = 'Уупс, кажется что-то пошло не так';
 
   redirect("/");
 }
